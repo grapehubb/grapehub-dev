@@ -6,11 +6,10 @@
     <title>Grape Hub 🍇</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* GLOBALER STIL */
         body {
             background-color: #0c0c0e;
             color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif; /* Standard-Font, aber extrem fett gemacht */
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             display: flex;
             height: 100vh;
@@ -19,10 +18,9 @@
 
         * {
             box-sizing: border-box;
-            font-weight: 900 !important; /* ERZWINGT MAXIMALE FETTE SCHRIFT ÜBERALL */
+            font-weight: 900 !important;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 280px;
             background-color: #141417;
@@ -68,14 +66,12 @@
             color: white;
         }
 
-        /* MAIN CONTENT */
         .content {
             flex: 1;
             padding: 40px;
             overflow-y: auto;
         }
 
-        /* --- DIE GRAPE HUB ÜBERSCHRIFT --- */
         .main-header-banner {
             background: linear-gradient(90deg, #1e1b4b 0%, #0c0c0e 100%);
             padding: 30px;
@@ -86,7 +82,7 @@
         }
 
         .grape-title-text {
-            font-size: 4rem; /* SEHR GROSS */
+            font-size: 4rem;
             color: #ffffff;
             text-transform: uppercase;
             letter-spacing: -2px;
@@ -97,7 +93,6 @@
             text-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
         }
 
-        /* DASHBOARD GRID */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -121,7 +116,7 @@
             margin-bottom: 20px;
         }
 
-        /* PLAN CARDS */
+        /* NEUE PLAN CARDS STYLES */
         .plan-card {
             background: #27272a;
             border-radius: 15px;
@@ -132,23 +127,24 @@
         }
 
         .plan-card:hover {
-            border-color: #8b5cf6;
+            border-color: #ffffff;
             transform: scale(1.02);
         }
 
         .plan-name {
             padding: 10px 20px;
-            font-size: 1.2rem;
-            color: black;
+            font-size: 1.1rem;
+            color: #000;
+            text-align: center;
         }
 
         .plan-price {
-            padding: 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
+            font-size: 0.9rem;
         }
 
-        /* LOADER BOX */
         .loader-box {
             background: #000;
             padding: 20px;
@@ -161,7 +157,6 @@
             word-break: break-all;
         }
 
-        /* LIVE STATS */
         .stat-row {
             display: flex;
             justify-content: space-between;
@@ -181,7 +176,6 @@
             text-align: center;
             border: 2px solid #27272a;
         }
-
     </style>
 </head>
 <body>
@@ -194,7 +188,6 @@
                 <div style="color: #8b5cf6; font-size: 0.8rem;">ONLINE</div>
             </div>
         </div>
-
         <a href="#" class="nav-item active"><i class="fas fa-home"></i> DASHBOARD</a>
         <a href="#" class="nav-item"><i class="fas fa-shopping-cart"></i> SHOP</a>
         <a href="#" class="nav-item"><i class="fas fa-code"></i> SCRIPTS</a>
@@ -202,35 +195,48 @@
     </div>
 
     <div class="content">
-        
         <div class="main-header-banner">
-            <h1 class="grape-title-text">
-                Grape Hub 🍇
-            </h1>
+            <h1 class="grape-title-text">Grape Hub 🍇</h1>
         </div>
 
         <div class="grid">
             <div class="panel">
-                <h2 style="margin-top:0; margin-bottom: 25px; font-size: 2rem;">CHOOSE PLAN</h2>
+                <h2 style="margin-top:0; margin-bottom: 25px; font-size: 2rem;">WÄHLE EINEN PLAN</h2>
                 
                 <div class="status-badge">
-                    <span>CURRENT PLAN: NONE</span>
+                    <span>KEIN PLAN AKTIV</span>
                     <i class="fas fa-times-circle"></i>
                 </div>
 
                 <div class="plan-card">
-                    <div class="plan-name" style="background: #eab308;">GOD TIER</div>
+                    <div class="plan-name" style="background: #3b82f6; color: white;">BASIC TIER</div>
                     <div class="plan-price">
-                        <span>R$ 60 / HR</span>
-                        <span id="god-live">8/10</span>
+                        <span>10 - 100M</span>
+                        <span>AKTIV</span>
                     </div>
                 </div>
 
                 <div class="plan-card">
-                    <div class="plan-name" style="background: #8b5cf6; color: white;">OMEGA TIER</div>
+                    <div class="plan-name" style="background: #22c55e; color: white;">PRO TIER</div>
                     <div class="plan-price">
-                        <span>R$ 40 / HR</span>
-                        <span id="omega-live">15/20</span>
+                        <span>100 - 500M</span>
+                        <span>AUSWÄHLEN</span>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-name" style="background: #eab308; color: black;">ELITE TIER</div>
+                    <div class="plan-price">
+                        <span>500 - 1B</span>
+                        <span>AUSWÄHLEN</span>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-name" style="background: #ef4444; color: white;">INF LIMITED</div>
+                    <div class="plan-price">
+                        <span>1B - NO LIMITED</span>
+                        <span>TOP SELLER</span>
                     </div>
                 </div>
             </div>
@@ -238,8 +244,8 @@
             <div class="panel">
                 <div class="stat-row">
                     <div>
-                        <h2 style="margin:0; font-size: 2rem;">LIVE USAGE</h2>
-                        <div style="color: #22c55e;">● SYSTEM ACTIVE</div>
+                        <h2 style="margin:0; font-size: 2rem;">LIVE STATUS</h2>
+                        <div style="color: #22c55e;">● SYSTEM BEREIT</div>
                     </div>
                     <div class="big-percent" id="load-pct">92%</div>
                 </div>
@@ -251,7 +257,7 @@
                     </div>
                     <div class="slot-pill">
                         <div style="color: #8b5cf6;">STATUS</div>
-                        <div style="font-size: 1.5rem;">UNDETECTED</div>
+                        <div style="font-size: 1.5rem;">SAFE</div>
                     </div>
                 </div>
 
@@ -264,15 +270,10 @@
     </div>
 
     <script>
-        // Kleines Skript für die Live-Zahlen
         setInterval(() => {
-            const load = 85 + Math.floor(Math.random() * 10);
+            const load = 88 + Math.floor(Math.random() * 8);
             document.getElementById('load-pct').innerText = load + "%";
-            
-            const god = 5 + Math.floor(Math.random() * 4);
-            document.getElementById('god-live').innerText = god + "/10";
         }, 2000);
     </script>
-
 </body>
 </html>
