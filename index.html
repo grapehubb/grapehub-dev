@@ -163,9 +163,10 @@
         .plan-card {
             background: #27272a;
             border-radius: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             overflow: hidden;
             border: 2px solid transparent;
+            transition: 0.3s;
         }
 
         .plan-name {
@@ -176,10 +177,27 @@
         }
 
         .plan-price {
-            padding: 15px 20px;
+            padding: 15px 20px 5px 20px;
             display: flex;
             justify-content: space-between;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        /* SLOT LIST STYLE */
+        .slot-info {
+            padding: 10px 20px 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slot-indicator {
+            background: rgba(0,0,0,0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .loader-box {
@@ -248,15 +266,21 @@
                     <div class="plan-name" style="background: #3b82f6; color: white;">BASIC TIER</div>
                     <div class="plan-price">
                         <span>10 - 100M</span>
-                        <span>SELECT</span>
+                        <span style="color: #22c55e;">AVAILABLE</span>
+                    </div>
+                    <div class="slot-info">
+                        <div class="slot-indicator"><i class="fas fa-user-friends"></i> 8 SLOTS</div>
                     </div>
                 </div>
 
                 <div class="plan-card">
-                    <div class="plan-name" style="background: #22c55e; color: white;">PRO TIER</div>
+                    <div class="plan-name" style="background: #22c55e; color: white;">MEDIUM TIER</div>
                     <div class="plan-price">
                         <span>100 - 500M</span>
-                        <span>SELECT</span>
+                        <span style="color: #22c55e;">AVAILABLE</span>
+                    </div>
+                    <div class="slot-info">
+                        <div class="slot-indicator"><i class="fas fa-user-friends"></i> 6 SLOTS</div>
                     </div>
                 </div>
 
@@ -264,7 +288,10 @@
                     <div class="plan-name" style="background: #eab308; color: black;">ELITE TIER</div>
                     <div class="plan-price">
                         <span>500 - 1B</span>
-                        <span>SELECT</span>
+                        <span style="color: #eab308;">LIMITED</span>
+                    </div>
+                    <div class="slot-info">
+                        <div class="slot-indicator"><i class="fas fa-user-friends"></i> 5 SLOTS</div>
                     </div>
                 </div>
 
@@ -272,7 +299,10 @@
                     <div class="plan-name" style="background: #ef4444; color: white;">PRO TIER</div>
                     <div class="plan-price">
                         <span>1B - NO LIMITED</span>
-                        <span>BEST VALUE</span>
+                        <span style="color: #ef4444;">HIGH DEMAND</span>
+                    </div>
+                    <div class="slot-info">
+                        <div class="slot-indicator"><i class="fas fa-user-friends"></i> 3 SLOTS</div>
                     </div>
                 </div>
             </div>
