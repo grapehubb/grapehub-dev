@@ -16,12 +16,9 @@
             overflow: hidden;
         }
 
-        * {
-            box-sizing: border-box;
-            font-weight: 900 !important;
-        }
+        * { box-sizing: border-box; font-weight: 900 !important; }
 
-        /* --- SIDEBAR --- */
+        /* SIDEBAR */
         .sidebar {
             width: 300px;
             background-color: #141417;
@@ -29,26 +26,18 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-
-        .avatar-area {
-            display: flex;
-            align-items: center; gap: 15px; margin-bottom: 20px;
-        }
-
-        .avatar-circle {
-            width: 55px; height: 55px; background: #8b5cf6; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            gap: 15px;
         }
 
         .balance-box {
-            background: #1e1e22; border: 2px solid #27272a; border-radius: 15px;
-            padding: 20px; margin-bottom: 25px; text-align: center;
+            background: #1e1e22;
+            border: 2px solid #27272a;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
         }
 
-        .balance-amount { font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
+        .balance-amount { font-size: 2.2rem; margin: 10px 0; color: #fff; }
 
         .add-balance-btn {
             background: #22c55e; color: white; border: none; padding: 12px;
@@ -62,189 +51,126 @@
 
         .nav-item.active { background: #8b5cf6; color: white; }
 
-        /* --- MAIN CONTENT --- */
+        /* MAIN CONTENT */
         .content { flex: 1; padding: 40px; overflow-y: auto; }
 
         .main-header-banner {
             background: linear-gradient(90deg, #1e1b4b 0%, #0c0c0e 100%);
             padding: 30px; border-radius: 20px; border-left: 10px solid #8b5cf6;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        .grape-title-text { font-size: 4rem; text-transform: uppercase; margin: 0; }
+        .panel { background: #18181b; border: 2px solid #27272a; border-radius: 20px; padding: 30px; margin-bottom: 25px; }
 
-        .grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
-
-        .panel { background: #18181b; border: 2px solid #27272a; border-radius: 20px; padding: 30px; margin-bottom: 30px; }
-
-        /* --- PURCHASE SYSTEM --- */
-        .purchase-input-group {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* SLOTS TABLE STYLE */
+        .slot-table-container { margin-top: 20px; }
+        .slot-row { 
+            background: #1e1e22; padding: 15px; border-radius: 15px; 
+            border: 1px solid #27272a; margin-bottom: 10px;
         }
-
-        select, input {
-            background: #000; border: 2px solid #333; color: white;
-            padding: 15px; border-radius: 12px; font-size: 1rem; width: 100%;
-        }
-
-        .price-display {
-            background: #1e1e22; padding: 15px; border-radius: 12px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-left: 5px solid #8b5cf6;
-        }
-
-        .buy-btn {
-            background: #8b5cf6; color: white; border: none; padding: 18px;
-            border-radius: 12px; cursor: pointer; font-size: 1.2rem; text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .buy-btn:hover { background: #7c3aed; transform: scale(1.02); }
-
-        /* --- SLOTS STATUS TABLE --- */
-        .slot-row { background: #1e1e22; padding: 15px; border-radius: 15px; border: 1px solid #27272a; margin-bottom: 12px; }
         .slot-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .progress-bg { width: 100%; height: 8px; background: #09090b; border-radius: 10px; overflow: hidden; }
+        .progress-bg { width: 100%; height: 10px; background: #000; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; border-radius: 10px; }
 
-        /* --- LOADER --- */
-        .loader-box { background: #000; padding: 20px; border-radius: 15px; border: 2px solid #333; color: #4ade80; font-family: monospace; margin-top: 15px; }
-        .big-percent { font-size: 4rem; color: #8b5cf6; }
+        /* PURCHASE BOX */
+        .purchase-box { background: #1e1e22; padding: 25px; border-radius: 15px; border: 2px solid #333; margin-top: 20px; }
+        select, input {
+            background: #000; border: 2px solid #333; color: white;
+            padding: 15px; border-radius: 10px; width: 100%; margin-bottom: 15px;
+        }
+        .buy-btn {
+            background: #8b5cf6; color: white; border: none; padding: 15px;
+            width: 100%; border-radius: 10px; cursor: pointer; font-size: 1.2rem;
+        }
+
+        .loader-box { background: #000; padding: 20px; border-radius: 10px; color: #4ade80; font-family: monospace; border: 1px solid #333; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="avatar-area">
-            <div class="avatar-circle">G</div>
-            <div>
-                <div style="font-size: 1.2rem;">ADMIN</div>
-                <div style="color: #22c55e; font-size: 0.8rem;">ONLINE</div>
-            </div>
-        </div>
-
         <div class="balance-box">
-            <div style="color: #a1a1aa; font-size: 0.8rem; text-transform: uppercase;">Total Balance</div>
-            <div class="balance-amount" id="current-balance">$ 0.00</div>
-            <button class="add-balance-btn" onclick="alert('Redirecting to Payment...')"><i class="fas fa-plus-circle"></i> Add Balance</button>
+            <div style="color: #a1a1aa; font-size: 0.8rem; text-transform: uppercase;">Balance</div>
+            <div class="balance-amount">$ 0.00</div>
+            <button class="add-balance-btn">+ ADD BALANCE</button>
         </div>
-
         <a href="#" class="nav-item active"><i class="fas fa-home"></i> DASHBOARD</a>
         <a href="#" class="nav-item"><i class="fas fa-shopping-cart"></i> STORE</a>
-        <a href="#" class="nav-item"><i class="fas fa-code"></i> SCRIPTS</a>
         <a href="#" class="nav-item" style="margin-top: auto; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
     </div>
 
     <div class="content">
         <div class="main-header-banner">
-            <h1 class="grape-title-text">Grape Hub 🍇</h1>
+            <h1 style="font-size: 3.5rem; margin:0;">GRAPE HUB 🍇</h1>
         </div>
 
-        <div class="grid">
-            <div>
-                <div class="panel">
-                    <h2 style="margin-top:0; margin-bottom: 20px;">PLANS STATUS</h2>
-                    
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            
+            <div class="panel">
+                <h2 style="margin-top:0;">PLANS STATUS</h2>
+                
+                <div class="slot-table-container">
                     <div class="slot-row">
-                        <div class="slot-header"><span>BASIC (10-100M)</span><span style="color:#3b82f6;">8/10</span></div>
-                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="slot-header"><span>BASIC (10-100M)</span><span style="color:#3b82f6;">8/10 Slots</span></div>
+                        <div style="font-size: 0.7rem; color: #555; margin-bottom: 5px;">Next slot in: N/A</div>
                         <div class="progress-bg"><div class="progress-fill" style="width: 80%; background: #3b82f6;"></div></div>
                     </div>
-
                     <div class="slot-row">
-                        <div class="slot-header"><span>MEDIUM (100-500M)</span><span style="color:#22c55e;">6/14</span></div>
-                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 40%; background: #22c55e;"></div></div>
+                        <div class="slot-header"><span>MEDIUM (100-500M)</span><span style="color:#22c55e;">6/14 Slots</span></div>
+                        <div style="font-size: 0.7rem; color: #555; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 42%; background: #22c55e;"></div></div>
                     </div>
-
                     <div class="slot-row">
-                        <div class="slot-header"><span>ELITE (500-1B)</span><span style="color:#eab308;">5/14</span></div>
-                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="slot-header"><span>ELITE (500-1B)</span><span style="color:#eab308;">5/14 Slots</span></div>
+                        <div style="font-size: 0.7rem; color: #555; margin-bottom: 5px;">Next slot in: N/A</div>
                         <div class="progress-bg"><div class="progress-fill" style="width: 35%; background: #eab308;"></div></div>
                     </div>
-
                     <div class="slot-row">
-                        <div class="slot-header"><span>PRO TIER (1B+)</span><span style="color:#ef4444;">3/14</span></div>
-                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill" style="width: 20%; background: #ef4444;"></div></div>
+                        <div class="slot-header"><span>PRO TIER (1B+)</span><span style="color:#ef4444;">3/14 Slots</span></div>
+                        <div style="font-size: 0.7rem; color: #555; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 21%; background: #ef4444;"></div></div>
                     </div>
                 </div>
             </div>
 
             <div>
                 <div class="panel">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h2 style="margin:0;">LOADER</h2>
-                        <div class="big-percent" id="load-pct" style="font-size: 2.5rem;">94%</div>
-                    </div>
+                    <h2 style="margin-top:0;">LOADER</h2>
                     <div class="loader-box">
                         loadstring(game:HttpGet("https://api.grapehub.net/v2"))()
                     </div>
 
-                    <div class="purchase-input-group">
-                        <h2 style="margin-top: 20px;">CHOOSE YOUR PLAN</h2>
-                        
-                        <select id="plan-select" onchange="calculatePrice()">
-                            <option value="20">BASIC TIER - $20/h</option>
-                            <option value="40">MEDIUM TIER - $40/h</option>
-                            <option value="60">ELITE TIER - $60/h</option>
-                            <option value="100">PRO TIER - $100/h</option>
+                    <div class="purchase-box">
+                        <h2 style="margin-top:0; color: #8b5cf6;">CHOOSE YOUR PLAN</h2>
+                        <select id="p-select" onchange="calc()">
+                            <option value="20">BASIC - $20/h</option>
+                            <option value="40">MEDIUM - $40/h</option>
+                            <option value="60">ELITE - $60/h</option>
+                            <option value="100">PRO - $100/h</option>
                         </select>
-
-                        <input type="number" id="hours-input" placeholder="Enter hours (min. 1)" min="1" oninput="calculatePrice()">
-
-                        <div class="price-display">
-                            <span>TOTAL PRICE:</span>
-                            <span id="total-price" style="font-size: 1.5rem; color: #22c55e;">$ 0.00</span>
+                        
+                        <input type="number" id="p-hours" placeholder="Enter Hours" min="1" oninput="calc()">
+                        
+                        <div style="display:flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #333;">
+                            <span>TOTAL:</span>
+                            <span id="p-total" style="color: #22c55e; font-size: 1.5rem;">$ 0.00</span>
                         </div>
-
-                        <button class="buy-btn" onclick="purchasePlan()">PURCHASE NOW</button>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="panel" style="text-align: center; padding: 20px;">
-                        <div style="color:#8b5cf6; font-size: 0.8rem;">ONLINE USERS</div>
-                        <div style="font-size: 1.5rem;">4,421</div>
-                    </div>
-                    <div class="panel" style="text-align: center; padding: 20px;">
-                        <div style="color:#8b5cf6; font-size: 0.8rem;">SYSTEM</div>
-                        <div style="font-size: 1.5rem; color: #22c55e;">SAFE</div>
+                        
+                        <button class="buy-btn" onclick="alert('Insufficient Balance!')">PURCHASE NOW</button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <script>
-        // Preisberechnung
-        function calculatePrice() {
-            const rate = document.getElementById('plan-select').value;
-            const hours = document.getElementById('hours-input').value;
-            const total = rate * hours;
-            document.getElementById('total-price').innerText = "$ " + (hours > 0 ? total.toFixed(2) : "0.00");
+        function calc() {
+            const price = document.getElementById('p-select').value;
+            const hours = document.getElementById('p-hours').value;
+            const total = price * (hours || 0);
+            document.getElementById('p-total').innerText = "$ " + total.toFixed(2);
         }
-
-        // Kauf-Funktion
-        function purchasePlan() {
-            const priceText = document.getElementById('total-price').innerText.replace('$ ', '');
-            const price = parseFloat(priceText);
-            
-            if(price <= 0) {
-                alert("Please enter a valid amount of hours!");
-                return;
-            }
-            
-            alert("Insufficient Balance! Please add funds to purchase this plan.");
-        }
-
-        // Live Prozent Animation
-        setInterval(() => {
-            const load = 92 + Math.floor(Math.random() * 6);
-            document.getElementById('load-pct').innerText = load + "%";
-        }, 2000);
     </script>
 </body>
 </html>
