@@ -21,7 +21,7 @@
             font-weight: 900 !important;
         }
 
-        /* SIDEBAR */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 300px;
             background-color: #141417;
@@ -34,33 +34,21 @@
 
         .avatar-area {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            align-items: center; gap: 15px; margin-bottom: 20px;
         }
 
         .avatar-circle {
-            width: 55px;
-            height: 55px;
-            background: #8b5cf6;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
+            width: 55px; height: 55px; background: #8b5cf6; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
 
         .balance-box {
-            background: #1e1e22;
-            border: 2px solid #27272a;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
+            background: #1e1e22; border: 2px solid #27272a; border-radius: 15px;
+            padding: 20px; margin-bottom: 25px; text-align: center;
         }
 
-        .balance-amount { font-size: 2rem; margin-bottom: 15px; }
+        .balance-amount { font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
 
         .add-balance-btn {
             background: #22c55e; color: white; border: none; padding: 12px;
@@ -74,7 +62,7 @@
 
         .nav-item.active { background: #8b5cf6; color: white; }
 
-        /* MAIN CONTENT */
+        /* --- MAIN CONTENT --- */
         .content { flex: 1; padding: 40px; overflow-y: auto; }
 
         .main-header-banner {
@@ -87,64 +75,42 @@
 
         .grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
 
-        .panel { background: #18181b; border: 2px solid #27272a; border-radius: 20px; padding: 30px; }
+        .panel { background: #18181b; border: 2px solid #27272a; border-radius: 20px; padding: 30px; margin-bottom: 30px; }
 
-        /* PLAN CARDS */
-        .plan-card {
-            background: #27272a; border-radius: 15px; margin-bottom: 15px;
-            overflow: hidden; border: 2px solid transparent;
-        }
-        .plan-name { padding: 10px 20px; color: #000; text-align: center; }
-        .plan-price { padding: 15px 20px; display: flex; justify-content: space-between; font-size: 0.9rem; }
-
-        /* --- NEUE SLOTS TABELLE UNTER PLANS --- */
-        .slots-status-container {
-            margin-top: 30px;
+        /* --- PURCHASE SYSTEM --- */
+        .purchase-input-group {
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .slot-row {
-            background: #1e1e22;
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid #27272a;
+        select, input {
+            background: #000; border: 2px solid #333; color: white;
+            padding: 15px; border-radius: 12px; font-size: 1rem; width: 100%;
         }
 
-        .slot-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+        .price-display {
+            background: #1e1e22; padding: 15px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 5px solid #8b5cf6;
         }
 
-        .slot-label { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-        .slot-count { color: #3b82f6; font-size: 1rem; }
-        .slot-next { color: #52525b; font-size: 0.8rem; margin-bottom: 8px; }
-
-        /* Progress Bar Styles */
-        .progress-bg {
-            width: 100%;
-            height: 8px;
-            background: #09090b;
-            border-radius: 10px;
-            overflow: hidden;
+        .buy-btn {
+            background: #8b5cf6; color: white; border: none; padding: 18px;
+            border-radius: 12px; cursor: pointer; font-size: 1.2rem; text-transform: uppercase;
+            transition: 0.3s;
         }
+        .buy-btn:hover { background: #7c3aed; transform: scale(1.02); }
 
-        .progress-fill {
-            height: 100%;
-            border-radius: 10px;
-        }
+        /* --- SLOTS STATUS TABLE --- */
+        .slot-row { background: #1e1e22; padding: 15px; border-radius: 15px; border: 1px solid #27272a; margin-bottom: 12px; }
+        .slot-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .progress-bg { width: 100%; height: 8px; background: #09090b; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 10px; }
 
-        /* Farbschemata für Bars */
-        .fill-basic { width: 80%; background: #3b82f6; }
-        .fill-medium { width: 30%; background: #22c55e; }
-        .fill-elite { width: 50%; background: #eab308; }
-        .fill-pro { width: 15%; background: #ef4444; }
-
-        /* RECHTE SEITE */
-        .loader-box { background: #000; padding: 20px; border-radius: 15px; border: 2px solid #333; color: #4ade80; font-family: monospace; margin-top: 20px; }
+        /* --- LOADER --- */
+        .loader-box { background: #000; padding: 20px; border-radius: 15px; border: 2px solid #333; color: #4ade80; font-family: monospace; margin-top: 15px; }
         .big-percent { font-size: 4rem; color: #8b5cf6; }
     </style>
 </head>
@@ -161,8 +127,8 @@
 
         <div class="balance-box">
             <div style="color: #a1a1aa; font-size: 0.8rem; text-transform: uppercase;">Total Balance</div>
-            <div class="balance-amount">$ 0.00</div>
-            <button class="add-balance-btn"><i class="fas fa-plus-circle"></i> Add Balance</button>
+            <div class="balance-amount" id="current-balance">$ 0.00</div>
+            <button class="add-balance-btn" onclick="alert('Redirecting to Payment...')"><i class="fas fa-plus-circle"></i> Add Balance</button>
         </div>
 
         <a href="#" class="nav-item active"><i class="fas fa-home"></i> DASHBOARD</a>
@@ -179,98 +145,104 @@
         <div class="grid">
             <div>
                 <div class="panel">
-                    <h2 style="margin-top:0; margin-bottom: 20px;">CHOOSE PLAN</h2>
-                    
-                    <div class="plan-card">
-                        <div class="plan-name" style="background: #3b82f6; color: white;">BASIC TIER</div>
-                        <div class="plan-price"><span>10 - 100M</span><span>SELECT</span></div>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-name" style="background: #22c55e; color: white;">MEDIUM TIER</div>
-                        <div class="plan-price"><span>100 - 500M</span><span>SELECT</span></div>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-name" style="background: #eab308; color: black;">ELITE TIER</div>
-                        <div class="plan-price"><span>500 - 1B</span><span>SELECT</span></div>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-name" style="background: #ef4444; color: white;">PRO TIER</div>
-                        <div class="plan-price"><span>1B - NO LIMITED</span><span>BEST VALUE</span></div>
-                    </div>
-                </div>
-
-                <div class="slots-status-container">
-                    <h2 style="margin-bottom: 5px;">PLANS STATUS</h2>
+                    <h2 style="margin-top:0; margin-bottom: 20px;">PLANS STATUS</h2>
                     
                     <div class="slot-row">
-                        <div class="slot-header">
-                            <span class="slot-label">BASIC</span>
-                            <span class="slot-count" style="color:#3b82f6;"><i class="fas fa-users"></i> 8/10</span>
-                        </div>
-                        <div class="slot-next">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill fill-basic"></div></div>
+                        <div class="slot-header"><span>BASIC (10-100M)</span><span style="color:#3b82f6;">8/10</span></div>
+                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 80%; background: #3b82f6;"></div></div>
                     </div>
 
                     <div class="slot-row">
-                        <div class="slot-header">
-                            <span class="slot-label">MEDIUM</span>
-                            <span class="slot-count" style="color:#22c55e;"><i class="fas fa-users"></i> 6/14</span>
-                        </div>
-                        <div class="slot-next">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill fill-medium"></div></div>
+                        <div class="slot-header"><span>MEDIUM (100-500M)</span><span style="color:#22c55e;">6/14</span></div>
+                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 40%; background: #22c55e;"></div></div>
                     </div>
 
                     <div class="slot-row">
-                        <div class="slot-header">
-                            <span class="slot-label">ELITE</span>
-                            <span class="slot-count" style="color:#eab308;"><i class="fas fa-users"></i> 5/14</span>
-                        </div>
-                        <div class="slot-next">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill fill-elite"></div></div>
+                        <div class="slot-header"><span>ELITE (500-1B)</span><span style="color:#eab308;">5/14</span></div>
+                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 35%; background: #eab308;"></div></div>
                     </div>
 
                     <div class="slot-row">
-                        <div class="slot-header">
-                            <span class="slot-label">PRO TIER</span>
-                            <span class="slot-count" style="color:#ef4444;"><i class="fas fa-users"></i> 3/14</span>
-                        </div>
-                        <div class="slot-next">Next slot in: N/A</div>
-                        <div class="progress-bg"><div class="progress-fill fill-pro"></div></div>
+                        <div class="slot-header"><span>PRO TIER (1B+)</span><span style="color:#ef4444;">3/14</span></div>
+                        <div style="font-size: 0.7rem; color: #52525b; margin-bottom: 5px;">Next slot in: N/A</div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: 20%; background: #ef4444;"></div></div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <div>
-                        <h2 style="margin:0;">SYSTEM LOAD</h2>
-                        <div style="color: #22c55e;">● READY</div>
+            <div>
+                <div class="panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="margin:0;">LOADER</h2>
+                        <div class="big-percent" id="load-pct" style="font-size: 2.5rem;">94%</div>
                     </div>
-                    <div class="big-percent" id="load-pct">94%</div>
+                    <div class="loader-box">
+                        loadstring(game:HttpGet("https://api.grapehub.net/v2"))()
+                    </div>
+
+                    <div class="purchase-input-group">
+                        <h2 style="margin-top: 20px;">CHOOSE YOUR PLAN</h2>
+                        
+                        <select id="plan-select" onchange="calculatePrice()">
+                            <option value="20">BASIC TIER - $20/h</option>
+                            <option value="40">MEDIUM TIER - $40/h</option>
+                            <option value="60">ELITE TIER - $60/h</option>
+                            <option value="100">PRO TIER - $100/h</option>
+                        </select>
+
+                        <input type="number" id="hours-input" placeholder="Enter hours (min. 1)" min="1" oninput="calculatePrice()">
+
+                        <div class="price-display">
+                            <span>TOTAL PRICE:</span>
+                            <span id="total-price" style="font-size: 1.5rem; color: #22c55e;">$ 0.00</span>
+                        </div>
+
+                        <button class="buy-btn" onclick="purchasePlan()">PURCHASE NOW</button>
+                    </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="slot-pill">
-                        <div style="color: #8b5cf6; font-size: 0.7rem;">TOTAL USERS</div>
+                    <div class="panel" style="text-align: center; padding: 20px;">
+                        <div style="color:#8b5cf6; font-size: 0.8rem;">ONLINE USERS</div>
                         <div style="font-size: 1.5rem;">4,421</div>
                     </div>
-                    <div class="slot-pill">
-                        <div style="color: #8b5cf6; font-size: 0.7rem;">STATUS</div>
-                        <div style="font-size: 1.5rem;">SECURE</div>
+                    <div class="panel" style="text-align: center; padding: 20px;">
+                        <div style="color:#8b5cf6; font-size: 0.8rem;">SYSTEM</div>
+                        <div style="font-size: 1.5rem; color: #22c55e;">SAFE</div>
                     </div>
-                </div>
-
-                <h2 style="margin-top: 40px; margin-bottom: 10px;">LOADER</h2>
-                <div class="loader-box">
-                    loadstring(game:HttpGet("https://api.grapehub.net/v2"))()
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Preisberechnung
+        function calculatePrice() {
+            const rate = document.getElementById('plan-select').value;
+            const hours = document.getElementById('hours-input').value;
+            const total = rate * hours;
+            document.getElementById('total-price').innerText = "$ " + (hours > 0 ? total.toFixed(2) : "0.00");
+        }
+
+        // Kauf-Funktion
+        function purchasePlan() {
+            const priceText = document.getElementById('total-price').innerText.replace('$ ', '');
+            const price = parseFloat(priceText);
+            
+            if(price <= 0) {
+                alert("Please enter a valid amount of hours!");
+                return;
+            }
+            
+            alert("Insufficient Balance! Please add funds to purchase this plan.");
+        }
+
+        // Live Prozent Animation
         setInterval(() => {
-            const load = 90 + Math.floor(Math.random() * 8);
+            const load = 92 + Math.floor(Math.random() * 6);
             document.getElementById('load-pct').innerText = load + "%";
         }, 2000);
     </script>
