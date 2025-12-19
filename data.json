@@ -1,0 +1,8 @@
+{
+  "plan": {
+    "name": "Grape Hub Premium",
+    "price": 15,
+    "totalSlots": 6,
+    "usedSlots": 3
+  }
+}
