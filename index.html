@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grape Hub 🍇</title>
+    <title>Grape Hub 🍇 | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -21,32 +21,75 @@
             font-weight: 900 !important;
         }
 
+        /* SIDEBAR */
         .sidebar {
-            width: 280px;
+            width: 300px;
             background-color: #141417;
             border-right: 2px solid #27272a;
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
+            gap: 10px;
         }
 
         .avatar-area {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .avatar-circle {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: #8b5cf6;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        /* BALANCE SECTION */
+        .balance-box {
+            background: #1e1e22;
+            border: 2px solid #27272a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .balance-label {
+            color: #a1a1aa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .balance-amount {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .add-balance-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        .add-balance-btn:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
         }
 
         .nav-item {
@@ -55,9 +98,8 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            border-radius: 12px;
             font-size: 1.1rem;
         }
 
@@ -66,6 +108,7 @@
             color: white;
         }
 
+        /* MAIN CONTENT */
         .content {
             flex: 1;
             padding: 40px;
@@ -116,19 +159,13 @@
             margin-bottom: 20px;
         }
 
-        /* NEUE PLAN CARDS STYLES */
+        /* PLAN CARDS */
         .plan-card {
             background: #27272a;
             border-radius: 15px;
             margin-bottom: 15px;
             overflow: hidden;
             border: 2px solid transparent;
-            transition: 0.2s;
-        }
-
-        .plan-card:hover {
-            border-color: #ffffff;
-            transform: scale(1.02);
         }
 
         .plan-name {
@@ -154,14 +191,6 @@
             font-family: monospace;
             font-size: 1.1rem;
             margin-top: 20px;
-            word-break: break-all;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
         }
 
         .big-percent {
@@ -185,11 +214,18 @@
             <div class="avatar-circle">G</div>
             <div>
                 <div style="font-size: 1.2rem;">ADMIN</div>
-                <div style="color: #8b5cf6; font-size: 0.8rem;">ONLINE</div>
+                <div style="color: #22c55e; font-size: 0.8rem;">ONLINE</div>
             </div>
         </div>
+
+        <div class="balance-box">
+            <div class="balance-label">Total Balance</div>
+            <div class="balance-amount">$ 0.00</div>
+            <button class="add-balance-btn"><i class="fas fa-plus-circle"></i> Add Balance</button>
+        </div>
+
         <a href="#" class="nav-item active"><i class="fas fa-home"></i> DASHBOARD</a>
-        <a href="#" class="nav-item"><i class="fas fa-shopping-cart"></i> SHOP</a>
+        <a href="#" class="nav-item"><i class="fas fa-shopping-cart"></i> STORE</a>
         <a href="#" class="nav-item"><i class="fas fa-code"></i> SCRIPTS</a>
         <a href="#" class="nav-item" style="margin-top: auto; border: 2px solid #ef4444; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
     </div>
@@ -201,10 +237,10 @@
 
         <div class="grid">
             <div class="panel">
-                <h2 style="margin-top:0; margin-bottom: 25px; font-size: 2rem;">WÄHLE EINEN PLAN</h2>
+                <h2 style="margin-top:0; margin-bottom: 25px; font-size: 2rem;">CHOOSE PLAN</h2>
                 
                 <div class="status-badge">
-                    <span>KEIN PLAN AKTIV</span>
+                    <span>CURRENT PLAN: NONE</span>
                     <i class="fas fa-times-circle"></i>
                 </div>
 
@@ -212,7 +248,7 @@
                     <div class="plan-name" style="background: #3b82f6; color: white;">BASIC TIER</div>
                     <div class="plan-price">
                         <span>10 - 100M</span>
-                        <span>AKTIV</span>
+                        <span>SELECT</span>
                     </div>
                 </div>
 
@@ -220,7 +256,7 @@
                     <div class="plan-name" style="background: #22c55e; color: white;">PRO TIER</div>
                     <div class="plan-price">
                         <span>100 - 500M</span>
-                        <span>AUSWÄHLEN</span>
+                        <span>SELECT</span>
                     </div>
                 </div>
 
@@ -228,26 +264,26 @@
                     <div class="plan-name" style="background: #eab308; color: black;">ELITE TIER</div>
                     <div class="plan-price">
                         <span>500 - 1B</span>
-                        <span>AUSWÄHLEN</span>
+                        <span>SELECT</span>
                     </div>
                 </div>
 
                 <div class="plan-card">
-                    <div class="plan-name" style="background: #ef4444; color: white;">INF LIMITED</div>
+                    <div class="plan-name" style="background: #ef4444; color: white;">PRO TIER</div>
                     <div class="plan-price">
                         <span>1B - NO LIMITED</span>
-                        <span>TOP SELLER</span>
+                        <span>BEST VALUE</span>
                     </div>
                 </div>
             </div>
 
             <div class="panel">
-                <div class="stat-row">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <div>
                         <h2 style="margin:0; font-size: 2rem;">LIVE STATUS</h2>
-                        <div style="color: #22c55e;">● SYSTEM BEREIT</div>
+                        <div style="color: #22c55e;">● SYSTEM READY</div>
                     </div>
-                    <div class="big-percent" id="load-pct">92%</div>
+                    <div class="big-percent" id="load-pct">94%</div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -257,7 +293,7 @@
                     </div>
                     <div class="slot-pill">
                         <div style="color: #8b5cf6;">STATUS</div>
-                        <div style="font-size: 1.5rem;">SAFE</div>
+                        <div style="font-size: 1.5rem;">SECURE</div>
                     </div>
                 </div>
 
@@ -271,7 +307,7 @@
 
     <script>
         setInterval(() => {
-            const load = 88 + Math.floor(Math.random() * 8);
+            const load = 90 + Math.floor(Math.random() * 8);
             document.getElementById('load-pct').innerText = load + "%";
         }, 2000);
     </script>
