@@ -3,236 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grape Hub 🍇 | LED Dashboard</title>
+    <title>Grape Hub 1B 🍇</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #0c0c0e;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
+        body { background-color: #0c0c0e; color: #ffffff; font-family: Arial, sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
         * { box-sizing: border-box; font-weight: 900 !important; }
 
         /* SIDEBAR */
-        .sidebar {
-            width: 300px;
-            background-color: #111114;
-            border-right: 1px solid #27272a;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .sidebar { width: 300px; background-color: #141417; border-right: 2px solid #27272a; padding: 30px 20px; display: flex; flex-direction: column; gap: 15px; }
+        .balance-box { background: #1e1e22; border: 2px solid #27272a; border-radius: 15px; padding: 20px; text-align: center; }
+        .balance-amount { font-size: 2rem; margin: 10px 0; color: #fff; }
+        .add-btn { background: #22c55e; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
+        .nav-item { padding: 15px; color: #a1a1aa; text-decoration: none; display: flex; align-items: center; gap: 12px; border-radius: 12px; }
+        .nav-item.active { background: #8b5cf6; color: white; }
 
-        .balance-card {
-            background: #18181b;
-            border: 1px solid #27272a;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
+        /* CONTENT */
+        .content { flex: 1; padding: 40px; overflow-y: auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .panel { background: #18181b; border: 2px solid #27272a; border-radius: 20px; padding: 30px; }
 
-        .balance-val { font-size: 2.2rem; margin: 10px 0; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        /* SLOT TABLE */
+        .slot-row { background: #1e1e22; padding: 15px; border-radius: 15px; border: 1px solid #27272a; margin-bottom: 12px; }
+        .progress-bg { width: 100%; height: 10px; background: #000; border-radius: 10px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { height: 100%; border-radius: 10px; }
 
-        .btn-add {
-            background: #22c55e; color: white; border: none; padding: 12px;
-            width: 100%; border-radius: 8px; cursor: pointer; text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .btn-add:hover { background: #16a34a; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+        /* LED TITLES */
+        .led-text { font-size: 1.8rem; text-transform: uppercase; margin-bottom: 15px; transition: 0.3s; }
+        .led-basic { color: #3b82f6; text-shadow: 0 0 15px #3b82f6; }
+        .led-medium { color: #22c55e; text-shadow: 0 0 15px #22c55e; }
+        .led-elite { color: #eab308; text-shadow: 0 0 15px #eab308; }
+        .led-pro { color: #ef4444; text-shadow: 0 0 15px #ef4444; }
 
-        /* MAIN CONTENT */
-        .main { flex: 1; padding: 40px; overflow-y: auto; }
+        /* PURCHASE AREA */
+        select, input { background: #000; border: 2px solid #333; color: white; padding: 15px; width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .buy-btn { background: #8b5cf6; color: white; border: none; padding: 20px; width: 100%; border-radius: 10px; font-size: 1.2rem; cursor: pointer; }
 
-        .header-banner {
-            background: linear-gradient(90deg, #1e1b4b 0%, #0c0c0e 100%);
-            padding: 30px; border-radius: 15px; border-left: 8px solid #8b5cf6;
-            margin-bottom: 30px;
-        }
-
-        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-
-        .panel-box {
-            background: #141417;
-            border: 1px solid #27272a;
-            border-radius: 15px;
-            padding: 25px;
-        }
-
-        /* LED PLAN TITLES */
-        #led-title {
-            font-size: 2rem;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            transition: 0.5s ease;
-        }
-
-        .led-basic { color: #3b82f6; text-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
-        .led-medium { color: #22c55e; text-shadow: 0 0 20px rgba(34, 197, 94, 0.8); }
-        .led-elite { color: #eab308; text-shadow: 0 0 20px rgba(234, 179, 8, 0.8); }
-        .led-pro { color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
-
-        /* INPUTS */
-        select, input {
-            background: #000; border: 1px solid #333; color: white;
-            padding: 15px; border-radius: 10px; width: 100%; margin-bottom: 15px;
-            font-size: 1rem;
-        }
-
-        .price-summary {
-            background: #0f0f12; padding: 20px; border-radius: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid #27272a;
-        }
-
-        .btn-buy {
-            background: #8b5cf6; color: white; border: none; padding: 18px;
-            width: 100%; border-radius: 10px; font-size: 1.2rem; cursor: pointer;
-            text-transform: uppercase; margin-top: 20px;
-        }
-
-        /* SUCCESS MODAL (Das aufploppende Fenster) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none; /* Versteckt */
-            justify-content: center; align-items: center; z-index: 1000;
-        }
-
-        .modal-content {
-            background: #18181b; border: 2px solid #22c55e; padding: 40px;
-            border-radius: 20px; text-align: center; width: 400px;
-            box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
-            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .check-icon { font-size: 4rem; color: #22c55e; margin-bottom: 20px; display: block; }
+        /* MODAL */
+        #modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <div class="modal-overlay" id="success-modal">
-        <div class="modal-content">
-            <i class="fas fa-check-circle check-icon"></i>
-            <h2 style="margin: 0; color: white;">PURCHASE SUCCESS!</h2>
-            <p style="color: #a1a1aa; margin-top: 15px;">Your plan has been activated. The script loader is now ready.</p>
-            <button class="btn-add" style="margin-top: 20px;" onclick="closeModal()">Back to Dashboard</button>
+    <div id="modal" onclick="this.style.display='none'">
+        <div style="background: #18181b; padding: 40px; border-radius: 20px; text-align: center; border: 2px solid #22c55e;">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: #22c55e;"></i>
+            <h2>PURCHASE SUCCESSFUL!</h2>
+            <p>Your plan is now active.</p>
         </div>
     </div>
 
     <div class="sidebar">
-        <h2 style="color: #8b5cf6; text-align: center;">GRAPE HUB 🍇</h2>
-        <div class="balance-card">
-            <div style="font-size: 0.7rem; color: #a1a1aa;">TOTAL BALANCE</div>
-            <div class="balance-val" id="user-bal">$ 0.00</div>
-            <button class="btn-add" onclick="window.location.href='topup.html'">+ Add Balance</button>
+        <div class="balance-box">
+            <div style="font-size: 0.8rem; color: #aaa;">BALANCE</div>
+            <div class="balance-amount" id="user-bal">$ 0.00</div>
+            <button class="add-btn" onclick="window.location.href='topup.html'">+ ADD BALANCE</button>
         </div>
-        <nav style="margin-top: 20px;">
-            <a href="#" class="btn-add" style="background: transparent; color: #a1a1aa; text-align: left; margin-bottom: 10px;"><i class="fas fa-home"></i> Dashboard</a>
-            <a href="#" class="btn-add" style="background: transparent; color: #a1a1aa; text-align: left;"><i class="fas fa-shopping-cart"></i> Store</a>
-        </nav>
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i> DASHBOARD</a>
+        <a href="#" class="nav-item"><i class="fas fa-shopping-cart"></i> STORE</a>
     </div>
 
-    <div class="main">
-        <div class="header-banner">
-            <h1 style="font-size: 3rem; margin: 0;">OFFICIAL PANEL</h1>
-        </div>
-
-        <div class="dashboard-grid">
-            <div class="panel-box">
-                <h2 style="margin-top: 0; font-size: 1.2rem; color: #52525b;">SYSTEM STATUS</h2>
-                <div style="background: #000; padding: 20px; border-radius: 10px; color: #4ade80; font-family: monospace;">
-                    loadstring(game:HttpGet("https://api.grapehub.net/v2"))()
+    <div class="content">
+        <h1 style="font-size: 3rem; margin-bottom: 30px;">GRAPE HUB 🍇</h1>
+        
+        <div class="grid">
+            <div class="panel">
+                <h2>PLANS STATUS</h2>
+                <div class="slot-row">
+                    <div style="display:flex; justify-content:space-between;"><span>BASIC (10-100M)</span><span style="color:#3b82f6;">8/10</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 80%; background: #3b82f6;"></div></div>
                 </div>
-                <div style="margin-top: 30px; border-top: 1px solid #27272a; padding-top: 20px;">
-                    <p style="color: #a1a1aa; font-size: 0.8rem;">PLANS ACTIVE: <span style="color: white;">4</span></p>
-                    <p style="color: #a1a1aa; font-size: 0.8rem;">SECURITY: <span style="color: #22c55e;">UNDETECTED</span></p>
+                <div class="slot-row">
+                    <div style="display:flex; justify-content:space-between;"><span>MEDIUM (100-500M)</span><span style="color:#22c55e;">6/14</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 42%; background: #22c55e;"></div></div>
+                </div>
+                <div class="slot-row">
+                    <div style="display:flex; justify-content:space-between;"><span>ELITE (500-1B)</span><span style="color:#eab308;">5/14</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 35%; background: #eab308;"></div></div>
+                </div>
+                <div class="slot-row">
+                    <div style="display:flex; justify-content:space-between;"><span>PRO TIER (1B+)</span><span style="color:#ef4444;">3/14</span></div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 21%; background: #ef4444;"></div></div>
                 </div>
             </div>
 
-            <div class="panel-box">
+            <div class="panel">
+                <h2>LOADER</h2>
+                <div style="background:#000; padding:15px; border-radius:10px; color:#4ade80; font-family:monospace; margin-bottom:30px;">
+                    loadstring(game:HttpGet("https://api.grapehub.net/v2"))()
+                </div>
+
                 <div id="led-title" class="led-basic">BASIC PLAN</div>
-                
                 <select id="plan-sel" onchange="updateUI()">
                     <option value="20" data-class="led-basic">BASIC TIER - $20/h</option>
                     <option value="40" data-class="led-medium">MEDIUM TIER - $40/h</option>
                     <option value="60" data-class="led-elite">ELITE TIER - $60/h</option>
                     <option value="100" data-class="led-pro">PRO TIER - $100/h</option>
                 </select>
-
-                <input type="number" id="hours-in" placeholder="Enter Hours (e.g. 5)" min="1" oninput="updateUI()">
-
-                <div class="price-summary">
-                    <span style="color: #a1a1aa;">TOTAL COST:</span>
-                    <span id="total-val" style="font-size: 1.8rem; color: #fff;">$ 0.00</span>
+                <input type="number" id="hours-in" placeholder="Hours" oninput="updateUI()">
+                <div style="display:flex; justify-content:space-between; margin: 20px 0;">
+                    <span>TOTAL:</span>
+                    <span id="total-val" style="color:#22c55e; font-size: 1.5rem;">$ 0.00</span>
                 </div>
-
-                <button class="btn-buy" onclick="purchasePlan()">Confirm Purchase</button>
+                <button class="buy-btn" onclick="purchasePlan()">PURCHASE NOW</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Balance laden
-        function refreshBalance() {
-            const bal = localStorage.getItem('grape_balance') || "0.00";
-            document.getElementById('user-bal').innerText = "$ " + parseFloat(bal).toFixed(2);
+        function refresh() {
+            const b = localStorage.getItem('grape_balance') || "0";
+            document.getElementById('user-bal').innerText = "$ " + parseFloat(b).toFixed(2);
         }
-
-        // UI Updates für LED & Preis
         function updateUI() {
-            const select = document.getElementById('plan-sel');
+            const s = document.getElementById('plan-sel');
+            const opt = s.options[s.selectedIndex];
             const title = document.getElementById('led-title');
-            const hours = document.getElementById('hours-in').value;
-            const rate = select.value;
-            
-            const selectedOption = select.options[select.selectedIndex];
-            const ledClass = selectedOption.getAttribute('data-class');
-            const planName = selectedOption.text.split(' - ')[0];
-
-            title.innerText = planName;
-            title.className = ledClass;
-
-            const total = rate * (hours || 0);
+            title.innerText = opt.text.split(' - ')[0];
+            title.className = "led-text " + opt.getAttribute('data-class');
+            const total = s.value * (document.getElementById('hours-in').value || 0);
             document.getElementById('total-val').innerText = "$ " + total.toFixed(2);
         }
-
-        // Kauf-Funktion mit Modal
         function purchasePlan() {
-            const totalCost = parseFloat(document.getElementById('total-val').innerText.replace('$ ', ''));
-            let currentBal = parseFloat(localStorage.getItem('grape_balance') || "0");
-
-            if (totalCost <= 0) {
-                alert("Please enter hours first!");
-                return;
-            }
-
-            if (currentBal >= totalCost) {
-                currentBal -= totalCost;
-                localStorage.setItem('grape_balance', currentBal);
-                refreshBalance();
-                
-                // Modal zeigen!
-                document.getElementById('success-modal').style.display = 'flex';
-            } else {
-                alert("INSUFFICIENT BALANCE! Go to 'Add Balance'.");
-            }
+            const cost = parseFloat(document.getElementById('total-val').innerText.replace('$ ',''));
+            let bal = parseFloat(localStorage.getItem('grape_balance') || "0");
+            if(cost > 0 && bal >= cost) {
+                localStorage.setItem('grape_balance', bal - cost);
+                refresh();
+                document.getElementById('modal').style.display = 'flex';
+            } else { alert("Insufficient Balance!"); }
         }
-
-        function closeModal() {
-            document.getElementById('success-modal').style.display = 'none';
-        }
-
-        window.onload = refreshBalance;
+        window.onload = refresh;
     </script>
 </body>
 </html>
