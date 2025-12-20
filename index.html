@@ -18,7 +18,6 @@
 
         * { box-sizing: border-box; font-weight: 800 !important; }
 
-        /* SIDEBAR */
         .sidebar {
             width: 320px;
             background-color: #111114;
@@ -44,7 +43,6 @@
             width: 100%; border-radius: 8px; cursor: pointer; text-transform: uppercase;
         }
 
-        /* MAIN CONTENT */
         .main { flex: 1; padding: 40px; overflow-y: auto; }
 
         .header-banner {
@@ -62,26 +60,13 @@
             padding: 25px;
         }
 
-        /* SLOT TABLE */
         .slot-item { background: #0f0f12; padding: 15px; border-radius: 10px; border: 1px solid #27272a; margin-bottom: 12px; }
         .progress-bg { width: 100%; height: 6px; background: #000; border-radius: 10px; margin-top: 10px; }
         .progress-bar { height: 100%; border-radius: 10px; }
 
-        /* --- PURCHASE CLEAN LED DESIGN --- */
-        .purchase-card {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .purchase-card { display: flex; flex-direction: column; gap: 20px; }
 
-        /* LED SCHRIFT EFFEKTE */
-        .led-text {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            transition: 0.3s;
-        }
+        .led-text { text-transform: uppercase; letter-spacing: 2px; font-size: 1.5rem; margin-bottom: 10px; transition: 0.3s; }
 
         .led-basic { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7); }
         .led-medium { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.7); }
@@ -90,49 +75,16 @@
 
         .loader-small { background: #000; padding: 15px; border-radius: 10px; color: #4ade80; font-family: monospace; border: 1px solid #333; margin-bottom: 20px; font-size: 0.8rem; }
 
-        select, input {
-            background: #18181b; border: 1px solid #3f3f46; color: white;
-            padding: 15px; border-radius: 10px; width: 100%; font-size: 1rem;
-            outline: none; transition: 0.2s;
-        }
+        select, input { background: #18181b; border: 1px solid #3f3f46; color: white; padding: 15px; border-radius: 10px; width: 100%; font-size: 1rem; outline: none; transition: 0.2s; }
         select:focus, input:focus { border-color: #8b5cf6; background: #1e1e22; }
 
-        .price-summary {
-            background: #0f0f12; padding: 20px; border-radius: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid #27272a; margin-top: 10px;
-        }
+        .price-summary { background: #0f0f12; padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #27272a; margin-top: 10px; }
+        .btn-buy { background: #8b5cf6; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+        .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(139, 92, 246, 0.5); }
 
-        .btn-buy, .btn-pay {
-            background: #8b5cf6; color: white; border: none; padding: 18px;
-            border-radius: 10px; font-size: 1.2rem; cursor: pointer;
-            text-transform: uppercase; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
-        }
-        .btn-buy:hover, .btn-pay:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(139, 92, 246, 0.5); }
-
-        .payment-box {
-            background: #1e1b4b;
-            border-radius: 15px;
-            border: 1px solid #27272a;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .payment-methods button {
-            background: #22c55e; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%;
-            font-weight: 800;
-        }
-
-        .success-message {
-            display: none;
-            background: #16a34a;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
+        .message { padding: 15px; border-radius: 10px; margin-top: 10px; font-weight: bold; display: none; }
+        .success { background: #22c55e; color: #fff; }
+        .error { background: #ef4444; color: #fff; }
 
     </style>
 </head>
@@ -142,8 +94,9 @@
         <div class="balance-card">
             <div style="font-size: 0.7rem; color: #a1a1aa; text-transform: uppercase;">Your Balance</div>
             <div class="balance-val" id="balance-val">$ 0.00</div>
-            <input type="number" id="add-amount" placeholder="Enter amount" style="margin-top:10px; padding:10px; font-size:1rem;">
-            <button class="btn-add" onclick="startPayment()">Add Balance</button>
+            <input type="number" id="add-balance-input" placeholder="Enter amount" style="margin-top:10px;">
+            <button class="btn-add" onclick="initAddBalance()">Add Balance</button>
+            <div id="balance-msg" class="message"></div>
         </div>
         <nav>
             <a href="#" class="nav-link active"><i class="fas fa-layer-group"></i> Dashboard</a>
@@ -170,7 +123,7 @@
                     <div class="progress-bg"><div class="progress-bar" style="width: 42%; background: #22c55e;"></div></div>
                 </div>
                 <div class="slot-item">
-                    <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">500M - 1B</span><span>5/14</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">500 - 1B</span><span>5/14</span></div>
                     <div class="progress-bg"><div class="progress-bar" style="width: 35%; background: #eab308;"></div></div>
                 </div>
                 <div class="slot-item">
@@ -181,15 +134,12 @@
 
             <div class="purchase-card">
                 <div class="panel-box">
-                    <h2 style="margin-top: 0; font-size: 1.1rem; color: #a1a1aa; margin-bottom: 10px;">LOADER</h2>
-                    <div class="loader-small">loadstring(game:HttpGet("https://api.grapehub.net/v2"))()</div>
-                    
-                    <div id="led-title" class="led-text led-basic">10 - 100M PLAN</div>
-                    
+                    <h2 style="margin-top: 0; font-size: 1.1rem; color: #a1a1aa; margin-bottom: 10px;">PURCHASE PLAN</h2>
+                    <div id="led-title" class="led-text led-basic">10 - 100M</div>
                     <select id="plan-sel" onchange="updateUI()">
                         <option value="20" data-class="led-basic">10 - 100M - $20/h</option>
                         <option value="40" data-class="led-medium">100 - 500M - $40/h</option>
-                        <option value="60" data-class="led-elite">500M - 1B - $60/h</option>
+                        <option value="60" data-class="led-elite">500 - 1B - $60/h</option>
                         <option value="100" data-class="led-pro">1B+ - $100/h</option>
                     </select>
 
@@ -200,72 +150,82 @@
                         <span id="total-val" style="font-size: 1.8rem; color: #fff;">$ 0.00</span>
                     </div>
 
-                    <button class="btn-buy" style="margin-top: 20px; width: 100%;" onclick="alert('Insufficient funds!')">Confirm Order</button>
+                    <button class="btn-buy" style="margin-top: 20px; width: 100%;" onclick="purchasePlan()">Confirm Order</button>
+                    <div id="purchase-msg" class="message"></div>
                 </div>
             </div>
-        </div>
-
-        <!-- PAYMENT BOX -->
-        <div class="payment-box" id="payment-box">
-            <h2 style="margin:0 0 10px 0;">Complete Payment</h2>
-            <div>Amount to add: $<span id="pay-amount"></span></div>
-            <div class="payment-methods">
-                <button onclick="completePayment('paypal')">Pay with PayPal</button>
-                <button onclick="completePayment('giftcard')">Redeem Giftcard</button>
-                <button onclick="completePayment('bitcoin')">Pay with Bitcoin</button>
-                <button onclick="completePayment('litecoin')">Pay with Litecoin</button>
-            </div>
-            <div class="success-message" id="success-msg">Payment successful! Balance updated.</div>
         </div>
     </div>
 
     <script>
+        let balance = 0;
+
         function updateUI() {
             const select = document.getElementById('plan-sel');
             const title = document.getElementById('led-title');
             const hours = document.getElementById('hours-in').value;
-            const rate = select.value;
-            
+            const rate = parseFloat(select.value);
             const selectedOption = select.options[select.selectedIndex];
             const ledClass = selectedOption.getAttribute('data-class');
             const planName = selectedOption.text.split(' - ')[0];
 
-            title.innerText = planName + " PLAN";
+            title.innerText = planName;
             title.className = "led-text " + ledClass;
 
             const total = rate * (hours || 0);
             document.getElementById('total-val').innerText = "$ " + total.toFixed(2);
         }
 
-        function startPayment() {
-            const amount = document.getElementById('add-amount').value;
+        function initAddBalance() {
+            const input = document.getElementById('add-balance-input').value;
+            const amount = parseFloat(input);
+            const msg = document.getElementById('balance-msg');
+
             if (!amount || amount <= 0) {
-                alert("Enter a valid amount!");
+                msg.innerText = "Enter a valid amount!";
+                msg.className = "message error";
+                msg.style.display = "block";
                 return;
             }
-            document.getElementById('pay-amount').innerText = parseFloat(amount).toFixed(2);
-            document.getElementById('payment-box').style.display = 'flex';
+
+            // Simulate payment
+            msg.innerText = "Processing payment of $" + amount.toFixed(2) + "...";
+            msg.className = "message";
+            msg.style.display = "block";
+
+            setTimeout(() => {
+                balance += amount;
+                document.getElementById('balance-val').innerText = "$ " + balance.toFixed(2);
+                msg.innerText = "Balance successfully added!";
+                msg.className = "message success";
+                document.getElementById('add-balance-input').value = '';
+            }, 1000); // simulate payment delay
         }
 
-        function completePayment(method) {
-            const amount = parseFloat(document.getElementById('add-amount').value);
-            if (!amount || amount <= 0) return;
+        function purchasePlan() {
+            const totalText = document.getElementById('total-val').innerText;
+            const total = parseFloat(totalText.replace('$','').trim());
+            const msg = document.getElementById('purchase-msg');
 
-            // Update balance
-            const balanceEl = document.getElementById('balance-val');
-            const currentBalance = parseFloat(balanceEl.innerText.replace('$','')) || 0;
-            balanceEl.innerText = "$ " + (currentBalance + amount).toFixed(2);
+            if (total <= 0) {
+                msg.innerText = "Enter hours to purchase a plan!";
+                msg.className = "message error";
+                msg.style.display = "block";
+                return;
+            }
 
-            // Show success message
-            const msg = document.getElementById('success-msg');
-            msg.style.display = 'block';
+            if (balance < total) {
+                msg.innerText = "Insufficient balance. Please add more!";
+                msg.className = "message error";
+                msg.style.display = "block";
+                return;
+            }
 
-            // Hide payment box after 2s
-            setTimeout(() => {
-                msg.style.display = 'none';
-                document.getElementById('payment-box').style.display = 'none';
-                document.getElementById('add-amount').value = '';
-            }, 2000);
+            balance -= total;
+            document.getElementById('balance-val').innerText = "$ " + balance.toFixed(2);
+            msg.innerText = "Plan purchased successfully!";
+            msg.className = "message success";
+            msg.style.display = "block";
         }
     </script>
 </body>
