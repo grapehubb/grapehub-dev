@@ -135,41 +135,39 @@ select:focus, input:focus { border-color: #8b5cf6; background: #1e1e22; }
     </div>
 
     <div class="dashboard-grid">
-        <!-- PLANS STATUS -->
         <div class="panel-box">
             <h2 style="margin-top: 0; font-size: 1.2rem; color: #a1a1aa; margin-bottom: 20px;">PLANS STATUS</h2>
             
             <div class="slot-item">
-                <div style="display:flex; justify-content:space-between;"><span style="color:#3b82f6;">BASIC</span><span>8/10</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#3b82f6;">10 - 100M</span><span>8/10</span></div>
                 <div class="progress-bg"><div class="progress-bar" style="width: 80%; background: #3b82f6;"></div></div>
             </div>
             <div class="slot-item">
-                <div style="display:flex; justify-content:space-between;"><span style="color:#22c55e;">MEDIUM</span><span>6/14</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#22c55e;">100 - 500M</span><span>6/14</span></div>
                 <div class="progress-bg"><div class="progress-bar" style="width: 42%; background: #22c55e;"></div></div>
             </div>
             <div class="slot-item">
-                <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">ELITE</span><span>5/14</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">500 - 1B</span><span>5/14</span></div>
                 <div class="progress-bg"><div class="progress-bar" style="width: 35%; background: #eab308;"></div></div>
             </div>
             <div class="slot-item">
-                <div style="display:flex; justify-content:space-between;"><span style="color:#ef4444;">PRO</span><span>3/14</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#ef4444;">1B+</span><span>3/14</span></div>
                 <div class="progress-bg"><div class="progress-bar" style="width: 21%; background: #ef4444;"></div></div>
             </div>
         </div>
 
-        <!-- PURCHASE CARD -->
         <div class="purchase-card">
             <div class="panel-box">
                 <h2 style="margin-top: 0; font-size: 1.1rem; color: #a1a1aa; margin-bottom: 10px;">LOADER</h2>
                 <div class="loader-small">loadstring(game:HttpGet("https://api.grapehub.net/v2"))()</div>
                 
-                <div id="led-title" class="led-text led-basic">BASIC PLAN</div>
+                <div id="led-title" class="led-text led-basic">10 - 100M</div>
                 
                 <select id="plan-sel" onchange="updateUI()">
-                    <option value="20" data-class="led-basic">BASIC TIER - $20/h</option>
-                    <option value="40" data-class="led-medium">MEDIUM TIER - $40/h</option>
-                    <option value="60" data-class="led-elite">ELITE TIER - $60/h</option>
-                    <option value="100" data-class="led-pro">PRO TIER - $100/h</option>
+                    <option value="20" data-class="led-basic">10 - 100M</option>
+                    <option value="40" data-class="led-medium">100 - 500M</option>
+                    <option value="60" data-class="led-elite">500 - 1B</option>
+                    <option value="100" data-class="led-pro">1B+</option>
                 </select>
 
                 <input type="number" id="hours-in" placeholder="Hours" min="1" style="margin-top: 15px;" oninput="updateUI()">
@@ -192,13 +190,16 @@ function updateUI() {
     const hours = document.getElementById('hours-in').value;
     const rate = select.value;
     
+    // Get Plan Name and LED class
     const selectedOption = select.options[select.selectedIndex];
     const ledClass = selectedOption.getAttribute('data-class');
-    const planName = selectedOption.text.split(' - ')[0];
+    const planName = selectedOption.text;
 
+    // Update LED Title
     title.innerText = planName;
     title.className = "led-text " + ledClass;
 
+    // Update Price
     const total = rate * (hours || 0);
     document.getElementById('total-val').innerText = "$ " + total.toFixed(2);
 }
