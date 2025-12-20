@@ -68,11 +68,7 @@
         .progress-bar { height: 100%; border-radius: 10px; }
 
         /* --- PURCHASE CLEAN LED DESIGN --- */
-        .purchase-card {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .purchase-card { display: flex; flex-direction: column; gap: 20px; }
 
         /* LED SCHRIFT EFFEKTE */
         .led-text {
@@ -83,7 +79,6 @@
             transition: 0.3s;
         }
 
-        /* Farbspezifische LED-Klassen */
         .led-basic { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.7); }
         .led-medium { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.7); }
         .led-elite { color: #eab308; text-shadow: 0 0 10px rgba(234, 179, 8, 0.7); }
@@ -110,7 +105,6 @@
             text-transform: uppercase; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
         }
         .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(139, 92, 246, 0.5); }
-
     </style>
 </head>
 <body>
@@ -135,7 +129,6 @@
         </div>
 
         <div class="dashboard-grid">
-            <!-- Plans Status -->
             <div class="panel-box">
                 <h2 style="margin-top: 0; font-size: 1.2rem; color: #a1a1aa; margin-bottom: 20px;">PLANS STATUS</h2>
                 
@@ -148,7 +141,7 @@
                     <div class="progress-bg"><div class="progress-bar" style="width: 42%; background: #22c55e;"></div></div>
                 </div>
                 <div class="slot-item">
-                    <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">500 - 1B</span><span>5/14</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#eab308;">500M - 1B</span><span>5/14</span></div>
                     <div class="progress-bg"><div class="progress-bar" style="width: 35%; background: #eab308;"></div></div>
                 </div>
                 <div class="slot-item">
@@ -157,7 +150,6 @@
                 </div>
             </div>
 
-            <!-- Purchase Card -->
             <div class="purchase-card">
                 <div class="panel-box">
                     <h2 style="margin-top: 0; font-size: 1.1rem; color: #a1a1aa; margin-bottom: 10px;">LOADER</h2>
@@ -168,7 +160,7 @@
                     <select id="plan-sel" onchange="updateUI()">
                         <option value="20" data-class="led-basic">10 - 100M - $20/h</option>
                         <option value="40" data-class="led-medium">100 - 500M - $40/h</option>
-                        <option value="60" data-class="led-elite">500 - 1B - $60/h</option>
+                        <option value="60" data-class="led-elite">500M - 1B - $60/h</option>
                         <option value="100" data-class="led-pro">1B+ - $100/h</option>
                     </select>
 
@@ -179,24 +171,22 @@
                         <span id="total-val" style="font-size: 1.8rem; color: #fff;">$ 0.00</span>
                     </div>
 
-                    <button class="btn-buy" style="margin-top: 20px; width: 100%;" onclick="confirmOrder()">Confirm Order</button>
+                    <button class="btn-buy" style="margin-top: 20px; width: 100%;" onclick="goToPayment()">Confirm Order</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        let balance = 0;
-
         function updateUI() {
             const select = document.getElementById('plan-sel');
             const title = document.getElementById('led-title');
             const hours = document.getElementById('hours-in').value;
             const rate = select.value;
-
+            
             const selectedOption = select.options[select.selectedIndex];
             const ledClass = selectedOption.getAttribute('data-class');
-            const planName = selectedOption.text.split(' - ')[0];
+            const planName = selectedOption.text.split(' - ')[0] + " - " + selectedOption.text.split(' - ')[1];
 
             title.innerText = planName;
             title.className = "led-text " + ledClass;
@@ -205,28 +195,20 @@
             document.getElementById('total-val').innerText = "$ " + total.toFixed(2);
         }
 
-        function addBalance() {
-            const amount = prompt("Enter amount to add:");
-            const num = parseFloat(amount);
-            if (!isNaN(num) && num > 0) {
-                balance += num;
-                document.getElementById('balance-val').innerText = "$ " + balance.toFixed(2);
-            } else {
-                alert("Invalid amount!");
+        function goToPayment() {
+            const total = document.getElementById('total-val').innerText.replace('$ ','');
+            if(total === "0.00") {
+                alert('Please enter hours to continue.');
+                return;
             }
+            window.location.href = `payment.html?total=${total}`;
         }
 
-        function confirmOrder() {
-            const totalText = document.getElementById('total-val').innerText.replace("$ ", "");
-            const total = parseFloat(totalText);
-
-            if (total > balance) {
-                alert("Insufficient funds!");
-            } else {
-                balance -= total;
-                document.getElementById('balance-val').innerText = "$ " + balance.toFixed(2);
-                alert("Order confirmed!");
-            }
+        // Demo Balance Funktion
+        let balance = 0;
+        function addBalance() {
+            balance += 100;
+            document.getElementById('balance-val').innerText = `$ ${balance}.00`;
         }
     </script>
 </body>
