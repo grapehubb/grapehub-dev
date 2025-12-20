@@ -1,185 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grape Hub 🍇 | Payment</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #0c0c0e;
-            color: #fff;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .payment-box {
-            background: #141417;
-            padding: 40px;
-            border-radius: 15px;
-            width: 380px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.7);
-        }
-
-        h1 { margin-bottom: 20px; color: #8b5cf6; }
-
-        .amount {
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-
-        .btn-pay {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 800;
-            cursor: pointer;
-            color: white;
-            transition: 0.2s;
-        }
-
-        .btn-pay.paypal { background-color: #0070ba; }
-        .btn-pay.ltc { background-color: #345c9c; }
-        .btn-pay.btc { background-color: #f7931a; }
-        .btn-pay.gift { background-color: #22c55e; }
-
-        .btn-pay:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
-
-        .success-msg {
-            margin-top: 20px;
-            background-color: #22c55e;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            font-weight: 700;
-        }
-
-        .btn-back {
-            margin-top: 15px;
-            background-color: #8b5cf6;
-            padding: 12px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-weight: 800;
-        }
-        .btn-back:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(139,92,246,0.5);
-        }
-
-        .giftcard-section {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .giftcard-section input, .giftcard-section select {
-            width: 100%;
-            margin-top: 8px;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #3f3f46;
-            background: #18181b;
-            color: white;
-        }
-
-        .giftcard-section button {
-            margin-top: 10px;
-            width: 100%;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grape Hub 🍇 | Payment</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+    background-color: #0c0c0e;
+    color: #fff;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.payment-card {
+    background: #141417;
+    border: 1px solid #27272a;
+    border-radius: 15px;
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+}
+.payment-card h2 {
+    margin-bottom: 20px;
+    color: #a1a1aa;
+}
+.amount-display {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.method-btn {
+    background: #22c55e;
+    border: none;
+    color: white;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.method-btn.crypto { background: #3b82f6; }
+.method-btn.gift { background: #8b5cf6; }
+.success-message {
+    background: #22c55e;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: none;
+    font-weight: 700;
+}
+input.gift-input {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: none;
+}
+</style>
 </head>
 <body>
 
-    <div class="payment-box">
-        <h1>Complete Payment</h1>
-        <div class="amount" id="amount-display">$0.00</div>
+<div class="payment-card">
+    <h2>Complete Your Payment</h2>
+    <div class="amount-display" id="amount-display">$0.00</div>
 
-        <!-- Standard Payment Buttons -->
-        <button class="btn-pay paypal" onclick="pay('PayPal')">Pay with PayPal</button>
-        <button class="btn-pay ltc" onclick="pay('Litecoin')">Pay with Litecoin</button>
-        <button class="btn-pay btc" onclick="pay('Bitcoin')">Pay with Bitcoin</button>
+    <button class="method-btn" id="paypal-btn">Pay with PayPal</button>
+    <button class="method-btn crypto" id="btc-btn">Pay with Bitcoin</button>
+    <button class="method-btn crypto" id="ltc-btn">Pay with Litecoin</button>
+    <button class="method-btn gift" id="gift-btn">Redeem Giftcard</button>
 
-        <!-- Giftcard Section -->
-        <div class="giftcard-section">
-            <label for="gift-method">Giftcard Type:</label>
-            <select id="gift-method">
-                <option value="PayPal">PayPal</option>
-                <option value="GiftMeCrypto">GiftMeCrypto</option>
-            </select>
-            <label for="gift-code">Enter Giftcard Code:</label>
-            <input type="text" id="gift-code" placeholder="XXXX-XXXX-XXXX">
-            <button class="btn-pay gift" onclick="redeemGift()">Redeem Giftcard</button>
-        </div>
+    <input type="text" id="gift-input" class="gift-input" placeholder="Enter giftcard code">
 
-        <div class="success-msg" id="success-msg">Payment Successful! 🎉</div>
-        <button class="btn-back" id="back-btn" style="display:none;" onclick="goBack()">Back to Dashboard</button>
-    </div>
+    <div class="success-message" id="success-msg">Payment Successful! Your balance has been updated.</div>
+</div>
 
-    <script>
-        // Betrag aus URL auslesen
-        const urlParams = new URLSearchParams(window.location.search);
-        const total = urlParams.get('total') || "0.00";
-        document.getElementById('amount-display').innerText = "$" + total;
+<script>
+// Betrag vom index.html holen
+const pendingAmount = parseFloat(sessionStorage.getItem('pendingAmount')) || 0;
+document.getElementById('amount-display').innerText = '$ ' + pendingAmount.toFixed(2);
 
-        function pay(method) {
-            showSuccess(`Payment of $${total} with ${method} Successful! 🎉`);
-            updateBalance(parseFloat(total));
-        }
+const paypalBtn = document.getElementById('paypal-btn');
+const btcBtn = document.getElementById('btc-btn');
+const ltcBtn = document.getElementById('ltc-btn');
+const giftBtn = document.getElementById('gift-btn');
+const giftInput = document.getElementById('gift-input');
+const successMsg = document.getElementById('success-msg');
 
-        function redeemGift() {
-            const code = document.getElementById('gift-code').value.trim();
-            const type = document.getElementById('gift-method').value;
-            if(!code) {
-                alert("Please enter a valid giftcard code!");
-                return;
-            }
+// Funktion nach erfolgreicher Zahlung
+function completePayment() {
+    // Betrag in sessionStorage speichern
+    sessionStorage.setItem('paidAmount', pendingAmount);
+    successMsg.style.display = 'block';
+    // Nach kurzer Verzögerung zurück zur Dashboard-Seite
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 2000);
+}
 
-            // Beispiel: einfache Code-Validierung
-            // Hier könntest du eine Liste gültiger Codes prüfen oder API nutzen
-            const validCodes = ["GRAPE100", "GRAPE500", "GRAPE1000"];
-            if(!validCodes.includes(code)) {
-                alert("Invalid giftcard code!");
-                return;
-            }
+// PayPal, BTC, LTC Buttons
+paypalBtn.addEventListener('click', () => {
+    completePayment();
+});
+btcBtn.addEventListener('click', () => {
+    completePayment();
+});
+ltcBtn.addEventListener('click', () => {
+    completePayment();
+});
 
-            // Betrag bestimmen je nach Code
-            let giftAmount = 0;
-            if(code === "GRAPE100") giftAmount = 100;
-            if(code === "GRAPE500") giftAmount = 500;
-            if(code === "GRAPE1000") giftAmount = 1000;
+// Giftcard Button
+giftBtn.addEventListener('click', () => {
+    giftInput.style.display = giftInput.style.display === 'block' ? 'none' : 'block';
+});
 
-            showSuccess(`Giftcard Redeemed! $${giftAmount} added via ${type}`);
-            updateBalance(giftAmount);
-        }
-
-        function showSuccess(msg) {
-            const successMsg = document.getElementById('success-msg');
-            successMsg.innerText = msg;
-            successMsg.style.display = 'block';
-            document.getElementById('back-btn').style.display = 'inline-block';
-        }
-
-        function updateBalance(amount) {
-            let currentBalance = parseFloat(localStorage.getItem('balance') || "0");
-            currentBalance += amount;
-            localStorage.setItem('balance', currentBalance.toFixed(2));
-        }
-
-        function goBack() {
-            window.location.href = "index.html";
-        }
-    </script>
-
+// Giftcard Eingabe
+giftInput.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter'){
+        // Hier könnte geprüft werden, welcher Typ die Giftcard ist (PayPal, GiftMeCrypto, etc.)
+        // Für Demo akzeptieren wir jede Eingabe als gültig
+        completePayment();
+    }
+});
+</script>
 </body>
 </html>
